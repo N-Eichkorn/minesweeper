@@ -1,0 +1,57 @@
+name: Build Go Project for Linux and Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'  # Ersetze mit der gewünschten Go-Version
+
+      - name: Build Binary
+        run: |
+          go mod tidy
+          GOARCH=${{ matrix.arch }} go build -o minesweeper-${{ matrix.arch }} .
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: minesweeper-linux-${{ matrix.arch }}
+          path: |
+            minesweeper-linux-${{ matrix.arch }}
+
+  build-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'  # Ersetze mit der gewünschten Go-Version
+
+      - name: Build Binary
+        run: |
+          go mod tidy
+          env GOARCH=${{ matrix.arch }} go build -o inc_link-windows-${{ matrix.arch }}.exe .
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: minesweeper-windows-${{ matrix.arch }}
+          path: | 
+            minesweeper-windows-${{ matrix.arch }}.exe
