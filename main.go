@@ -1,6 +1,6 @@
 // +---------------------------------------------------+
 // | Author: Niklas Eichkorn
-// | Date: 24.02.25
+// | Date: 28.02.25
 // | Version: 1.0
 // |---------------------------------------------------+
 // | Notes: merke https://gist.github.com/jordansissel/1e08b1c65157bde0f30a87c4fb569237
@@ -51,8 +51,8 @@ func main() {
 		a[x][y] = 1
 	}
 
-	// calculate Fields
 	/*
+		calculate Fields
 		X = is a mine
 	*/
 	var b [10][10]int
@@ -95,37 +95,39 @@ func main() {
 		{'█', '█', '█', '█', '█', '█', '█', '█', '█', '█'},
 		{'█', '█', '█', '█', '█', '█', '█', '█', '█', '█'},
 	}
+	/*
+		// Methods to Print fields
 
-	// print the A Field clear
-	ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
-	for i := 0; i < 10; i++ {
-		ansi.Print(ansi.BoldGreen, i, "|")
-		for j := 0; j < 10; j++ {
-			if a[i][j] == 1 {
-				ansi.Print(ansi.BoldRed, a[i][j], " ")
-			} else {
-				ansi.Print(ansi.BoldBlue, a[i][j], " ")
+		// print the A Field clear
+		ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
+		for i := 0; i < 10; i++ {
+			ansi.Print(ansi.BoldGreen, i, "|")
+			for j := 0; j < 10; j++ {
+				if a[i][j] == 1 {
+					ansi.Print(ansi.BoldRed, a[i][j], " ")
+				} else {
+					ansi.Print(ansi.BoldBlue, a[i][j], " ")
+				}
+
 			}
-
+			fmt.Println()
 		}
-		fmt.Println()
-	}
 
-	// print the B Field clear
-	ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
-	for i := 0; i < 10; i++ {
-		ansi.Print(ansi.BoldGreen, i, "|")
-		for j := 0; j < 10; j++ {
-			if b[i][j] == 'X' {
-				ansi.Print(ansi.BoldRed, b[i][j], " ")
-			} else {
-				ansi.Print(ansi.BoldCyan, b[i][j], " ")
+		// print the B Field clear
+		ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
+		for i := 0; i < 10; i++ {
+			ansi.Print(ansi.BoldGreen, i, "|")
+			for j := 0; j < 10; j++ {
+				if b[i][j] == 'X' {
+					ansi.Print(ansi.BoldRed, b[i][j], " ")
+				} else {
+					ansi.Print(ansi.BoldCyan, b[i][j], " ")
+				}
+
 			}
-
+			fmt.Println()
 		}
-		fmt.Println()
-	}
-
+	*/
 	// print the player field
 	ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
 	for i := 0; i < 10; i++ {
@@ -145,99 +147,35 @@ func main() {
 		var r, t int
 		fmt.Println("choose fields x y")
 		fmt.Scan(&t, &r)
+
+		// clear Screen
+		ansi.ClearScreen()
+
 		fmt.Printf("Your numbers are %d and %d\n", r, t)
 		if b[r][t] == 'X' { //Mine
 			ansi.Println(ansi.BoldRed, "You lost the Game!")
 			c[r][t] = b[r][t]
 		} else {
 			c[r][t] = b[r][t]
-			if r == 0 && t == 9 {
-
-				c[r+1][t] = b[r+1][t]
-				c[r][t-1] = b[r][t-1]
-				c[r+1][t-1] = b[r+1][t-1]
-
-			} else if r == 9 && t == 0 {
-
-				c[r-1][t] = b[r-1][t]
-				c[r][t+1] = b[r][t+1]
-				c[r-1][t+1] = b[r-1][t+1]
-
-			} else if r == 0 && t == 0 {
-
-				c[r+1][t] = b[r+1][t]
-				c[r][t+1] = b[r][t+1]
-				c[r+1][t+1] = b[r+1][t+1]
-
-			} else if r == 9 && t == 9 {
-
-				//c[r][t] = b[r][t]
-				c[r-1][t-1] = b[r-1][t-1]
-				c[r-1][t] = b[r-1][t]
-				c[r][t-1] = b[r][t-1]
-
-			} else if r == 0 {
-
-				c[r+1][t] = b[r+1][t]
-				c[r][t+1] = b[r][t+1]
-				c[r+1][t+1] = b[r+1][t+1]
-				c[r][t-1] = b[r][t-1]
-				c[r+1][t-1] = b[r+1][t-1]
-
-			} else if t == 0 {
-
-				c[r+1][t] = b[r+1][t]
-				c[r][t+1] = b[r][t+1]
-				c[r+1][t+1] = b[r+1][t+1]
-				c[r-1][t] = b[r-1][t]
-				c[r-1][t+1] = b[r-1][t+1]
-
-			} else if r == 9 {
-
-				c[r][t+1] = b[r][t+1]
-				c[r-1][t-1] = b[r-1][t-1]
-				c[r-1][t] = b[r-1][t]
-				c[r][t-1] = b[r][t-1]
-				c[r-1][t+1] = b[r-1][t+1]
-
-			} else if t == 9 {
-
-				c[r+1][t] = b[r+1][t]
-				c[r-1][t-1] = b[r-1][t-1]
-				c[r-1][t] = b[r-1][t]
-				c[r][t-1] = b[r][t-1]
-				c[r+1][t-1] = b[r+1][t-1]
-
-			} else {
-
-				c[r+1][t] = b[r+1][t]
-				c[r][t+1] = b[r][t+1]
-				c[r+1][t+1] = b[r+1][t+1]
-				c[r-1][t-1] = b[r-1][t-1]
-				c[r-1][t] = b[r-1][t]
-				c[r][t-1] = b[r][t-1]
-				c[r+1][t-1] = b[r+1][t-1]
-				c[r-1][t+1] = b[r-1][t+1]
-
-			}
 		}
-		ansi.ClearScreen()
+
 		/*
-			Debug
-		*/
-		ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
-		for i := 0; i < 10; i++ {
-			ansi.Print(ansi.BoldGreen, i, "|")
-			for j := 0; j < 10; j++ {
-				if c[i][j] == 'X' {
-					ansi.Print(ansi.BoldRed, b[i][j], " ")
-				} else {
-					ansi.Print(ansi.BoldCyan, b[i][j], " ")
-				}
+				Debug
 
+			ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
+			for i := 0; i < 10; i++ {
+				ansi.Print(ansi.BoldGreen, i, "|")
+				for j := 0; j < 10; j++ {
+					if c[i][j] == 'X' {
+						ansi.Print(ansi.BoldRed, b[i][j], " ")
+					} else {
+						ansi.Print(ansi.BoldCyan, b[i][j], " ")
+					}
+
+				}
+				fmt.Println()
 			}
-			fmt.Println()
-		}
+		*/
 
 		// print the player field
 		ansi.Print(ansi.BoldGreen, "  0 1 2 3 4 5 6 7 8 9\n +------------------+\n")
