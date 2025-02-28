@@ -21,7 +21,7 @@ jobs:
       - name: Build Binary
         run: |
           go mod tidy
-          GOARCH=${{ matrix.arch }} go build -o minesweeper-${{ matrix.arch }} .
+          GOARCH=${{ matrix.arch }} go build -o minesweeper-linux-${{ matrix.arch }} .
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -47,7 +47,7 @@ jobs:
       - name: Build Binary
         run: |
           go mod tidy
-          env GOARCH=${{ matrix.arch }} go build -o inc_link-windows-${{ matrix.arch }}.exe .
+          env GOARCH=${{ matrix.arch }} go build -o minesweeper-windows-${{ matrix.arch }}.exe .
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
