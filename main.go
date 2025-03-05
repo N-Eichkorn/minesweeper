@@ -144,6 +144,8 @@ func main() {
 	// Play
 	for true {
 
+		lost := false
+
 		var r, t int
 		fmt.Println("choose fields x y")
 		fmt.Scan(&t, &r)
@@ -155,6 +157,7 @@ func main() {
 		if b[r][t] == 'X' { //Mine
 			ansi.Println(ansi.BoldRed, "You lost the Game!")
 			c[r][t] = b[r][t]
+			lost = true
 		} else {
 			c[r][t] = b[r][t]
 		}
@@ -196,6 +199,8 @@ func main() {
 			}
 			fmt.Println()
 		}
-
+		if lost {
+			break
+		}
 	}
 }
